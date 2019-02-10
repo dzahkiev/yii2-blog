@@ -3,8 +3,8 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Article;
-use app\models\ArticleSearch;
+use app\modules\admin\models\Article;
+use app\modules\admin\models\search\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,7 +67,7 @@ class ArticleController extends Controller
         $model = new Article();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [

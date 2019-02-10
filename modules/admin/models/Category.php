@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use Yii;
 
@@ -36,8 +36,7 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название категории',
         ];
     }
 }

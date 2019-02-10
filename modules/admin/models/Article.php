@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use Yii;
 
@@ -53,17 +53,11 @@ class Article extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'category_id' => 'Category ID',
-            'status' => 'Status',
-            'title' => 'Title',
-            'description' => 'Description',
-            'content' => 'Content',
-            'image' => 'Image',
-            'viewed' => 'Viewed',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'title' => 'Заголовок статьи',
+            'description' => 'Описание',
+            'content' => 'Контент',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
         ];
     }
 

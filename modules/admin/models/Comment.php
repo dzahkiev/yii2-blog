@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use Yii;
 
@@ -48,13 +48,9 @@ class Comment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'article_id' => 'Article ID',
-            'text' => 'Text',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'text' => 'Текст комментария',
+            'created_at' => 'Дата добавления',
+            'updated_at' => 'Дата изменения',
         ];
     }
 

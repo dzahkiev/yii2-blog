@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use Yii;
 
@@ -33,18 +33,6 @@ class ArticleTag extends \yii\db\ActiveRecord
             [['article_id', 'tag_id'], 'integer'],
             [['article_id'], 'exist', 'skipOnError' => true, 'targetClass' => Article::className(), 'targetAttribute' => ['article_id' => 'id']],
             [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag_id' => 'id']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'article_id' => 'Article ID',
-            'tag_id' => 'Tag ID',
         ];
     }
 

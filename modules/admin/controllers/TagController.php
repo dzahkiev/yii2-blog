@@ -3,11 +3,11 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Tag;
-use app\models\TagSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\admin\models\Tag;
+use app\modules\admin\models\search\TagSearch;
 
 /**
  * TagController implements the CRUD actions for Tag model.
@@ -67,7 +67,7 @@ class TagController extends Controller
         $model = new Tag();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class TagController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

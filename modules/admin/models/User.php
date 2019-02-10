@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use Yii;
 
@@ -43,11 +43,10 @@ class User extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Имя пользователя',
             'email' => 'Email',
-            'password' => 'Password',
-            'photo' => 'Photo',
+            'password' => 'Пароль',
+            'photo' => 'Аватар',
         ];
     }
 
