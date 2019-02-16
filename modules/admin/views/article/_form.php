@@ -13,6 +13,10 @@ use app\modules\admin\helpers\ArticleHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->errorSummary($model, [
+        'class' => 'alert alert-error'
+    ]); ?>
+
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>

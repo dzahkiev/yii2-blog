@@ -18,8 +18,8 @@ class m190209_184232_create_comment_table extends Migration
             'article_id'=>$this->integer(),
             'text' => $this->string(),
             'status' => $this->integer(),
-            'created_at' => $this->timestamp(),
-            'updated_at' => $this->timestamp(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
         ]);
 
         $this->addForeignKey(

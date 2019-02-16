@@ -2,9 +2,12 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\admin\forms\ArticleForm;
+use app\modules\admin\services\ArticleService;
 use Yii;
 use app\modules\admin\models\Article;
 use app\modules\admin\models\search\ArticleSearch;
+use yii\base\Module;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -14,6 +17,24 @@ use yii\filters\VerbFilter;
  */
 class ArticleController extends Controller
 {
+    /**
+     * @var ArticleService
+     */
+    protected $service;
+
+    /**
+     * ArticleController constructor.
+     * @param $id
+     * @param Module $module
+     * @param array $config
+     * @param ArticleService $service
+     */
+    public function __construct($id, Module $module, ArticleService $service, array $config = [])
+    {
+        $this->service = $service;
+        parent::__construct($id, $module, $config);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -77,30 +98,35 @@ class ArticleController extends Controller
 
     /**
      * Updates an existing Article model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * If update is successful, the browser will be redirected to the 'view' page
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->service->find($id);
+        $form = new ArticleForm($model);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            if ($this->service->update($model, $form)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
-        return $this->render('update', [
-            'model' => $model,
+       return $this->render('update', [
+            'model' => $form,
         ]);
     }
 
     /**
      * Deletes an existing Article model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

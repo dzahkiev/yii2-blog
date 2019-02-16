@@ -22,8 +22,8 @@ class m190209_184040_create_article_table extends Migration
             'content' => $this->text(),
             'image' => $this->string('250'),
             'viewed' => $this->integer(),
-            'created_at' => $this->timestamp(),
-            'updated_at' => $this->timestamp(),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
         ]);
     }
     /**
