@@ -85,14 +85,16 @@ class ArticleController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Article();
+        $form = new ArticleForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            if ($this->service->create($form)) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $form,
         ]);
     }
 

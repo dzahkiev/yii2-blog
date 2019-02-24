@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\modules\admin\helpers\ArticleHelper;
-
+use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
 /* @var $form yii\widgets\ActiveForm */
@@ -23,13 +23,24 @@ use app\modules\admin\helpers\ArticleHelper;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'category_id')->dropDownList(ArticleHelper::getCategoriesForDropDownList(), [
-        'prompt' => 'Укажите категорию'
+    <?= $form->field($model, 'category_id')->widget(Select2::class, [
+        'data' => ArticleHelper::getCategoriesForDropDownList(),
+        'language' => 'ru',
+        'options' => ['placeholder' => 'Укажите категорию'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
     ]); ?>
 
-    <?= $form->field($model, 'tags')->dropDownList(ArticleHelper::getTagsForDropDownList(), [
-        'prompt' => 'Укажите теги',
-        'multiple' => true
+    <?= $form->field($model, 'tags')->widget(Select2::class, [
+        'data' => ArticleHelper::getTagsForDropDownList(),
+        'language' => 'ru',
+        'options' => ['placeholder' => 'Укажите теги'],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'closeOnSelect' => true,
+            'multiple' => true
+        ],
     ]); ?>
 
     <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>

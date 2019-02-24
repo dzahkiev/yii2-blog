@@ -8,8 +8,10 @@
 namespace app\modules\admin\services;
 
 use app\modules\admin\forms\ArticleForm;
+use app\modules\admin\helpers\ArticleHelper;
 use app\modules\admin\models\Article;
 use app\modules\admin\repositories\ArticleRepository;
+use Yii;
 use yii\db\Exception;
 
 class ArticleService
@@ -35,12 +37,16 @@ class ArticleService
         $model = $this->repository->create();
 
         $this->fill($model, $form);
+        $transaction = Yii::$app->db->beginTransaction();
         try {
             if ($this->repository->save($model)) {
+                $this->saveTags($model, $form);
+                $transaction->commit();
                 return $model;
             }
         } catch (Exception $e) {
             $form->addErrors($model->getErrors());
+            $transaction->rollBack();
         }
 
         return null;
@@ -55,15 +61,34 @@ class ArticleService
     public function update(Article $model, ArticleForm $form)
     {
         $this->fill($model, $form);
+        $transaction = Yii::$app->db->beginTransaction();
         try {
             if ($this->repository->save($model)) {
+                $this->saveTags($model, $form);
+                $transaction->commit();
                 return true;
             }
         } catch (\Exception $e) {
             $form->addErrors($model->getErrors());
+            $transaction->rollBack();
         }
 
         return false;
+    }
+
+    /**
+     * Метод сохранения связанных тегов
+     * @param $model
+     * @param $form
+     */
+    private function saveTags($model, $form)
+    {
+        if ($model->tags) {
+            $model->unlinkAll('tags', true);
+        }
+        foreach (ArticleHelper::getTagsByIds($form->tags) as $tag) {
+            $model->link('tags', $tag);
+        }
     }
 
     /**

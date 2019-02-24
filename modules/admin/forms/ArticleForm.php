@@ -68,6 +68,7 @@ class ArticleForm extends Model
             [['title'], 'string', 'max' => 80],
          //   [['image'], 'string', 'max' => 250],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            ['tags', 'safe']
         ];
     }
 
@@ -81,6 +82,8 @@ class ArticleForm extends Model
             'description' => 'Описание',
             'content' => 'Контент',
             'image' => 'Изображение',
+            'tags' => 'Теги',
+            'category_id' => 'Категория',
         ];
     }
 
@@ -93,7 +96,9 @@ class ArticleForm extends Model
                 'title',
                 'description',
                 'content',
+                'tags'
             ]));
+
         }
     }
 }

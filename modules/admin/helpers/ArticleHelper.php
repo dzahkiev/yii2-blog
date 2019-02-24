@@ -2,8 +2,7 @@
 /**
  * Файл ArticleHelper.php
  *
- * @copyright Copyright (c) 2018, Oleg Chulakov Studio
- * @link http://chulakov.com/
+ * @copyright Copyright (c) 2019, Dzahkiev
  */
 
 namespace app\modules\admin\helpers;
@@ -14,13 +13,28 @@ use yii\helpers\ArrayHelper;
 
 class ArticleHelper
 {
+    /**
+     * @return array
+     */
     public static function getCategoriesForDropDownList()
     {
         return ArrayHelper::map(Category::find()->all(), 'id', 'name');
     }
 
+    /**
+     * @return array
+     */
     public static function getTagsForDropDownList()
     {
         return ArrayHelper::map(Tag::find()->all(), 'id', 'name');
+    }
+
+    /**
+     * @param $ids
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getTagsByIds($ids)
+    {
+        return Tag::find()->andWhere(['id' => $ids])->all();
     }
 }

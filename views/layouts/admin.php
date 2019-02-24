@@ -2,8 +2,7 @@
 /**
  * Файл admin.php
  *
- * @copyright Copyright (c) 2018, Oleg Chulakov Studio
- * @link http://chulakov.com/
+ * @copyright Copyright (c) 2019, Dzahkiev
  */
 
 use app\widgets\Alert;
